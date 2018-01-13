@@ -6,21 +6,12 @@ if(mysqli_connect_error()){
 die("Connection failed");
 }
 
-$task = $_GET['id'];
-
-
-$sql = "DELETE FROM tasks WHERE id = '$task' ";
+$task = $_GET['status'];
+$id = $_GET['id'];
+$sql = "UPDATE tasks SET status= '$task' WHERE id = '$id'";
 $connect->query($sql);
 
-
-
-
-//mysqli_query($connect,"DELETE FROM tasks WHERE id='".$task."'");
-
-
 mysqli_close($connect);
-
-
 header("Location: connect.php");
 
 

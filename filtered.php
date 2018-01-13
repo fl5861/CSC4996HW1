@@ -28,21 +28,23 @@ Due Date:<br>
 $user = 'root';
 $pass = '';
 $db = 'tasks';
+
+$connection = new mysqli('localhost', $user, $pass, $db);
 $pendingCount = 0;
 $startedCount = 0;
 $completeCount = 0;
 $lateCount = 0;
 $row = 0;
-$connection = new mysqli('localhost', $user, $pass, $db);
-
 if (mysqli_connect_error()){
 die("Connection failed");
 }
-
+$getstatus = $_GET['status'];
 if (isset($_GET['task']) && isset($_GET['date'])){
 $taskname = $_GET["task"];
 $taskdate = $_GET["date"];
 $taskstatus = $_GET["status"];
+//Obtain status from home page to be filtered
+
 
 if($taskdate < date("Y-m-d"))
 $insert = "INSERT INTO tasks (name, status, date) VALUES ('$taskname', 'Late', '$taskdate')";
@@ -67,22 +69,25 @@ $i = 0;
 while ($i < $rows){
 $row = $data->fetch_assoc();
 
+if($row["status"] == $getstatus){
+
 echo "| Task:  " . $row["name"] . "   |  Status:  " . $row["status"] . "   |  Due Date:  " . $row["date"];
 echo "  | ";
 echo "<a href=\"removetask.php?id=".$row['id']."\">Remove</a>";
 echo "  | ";
 $Complete= "Complete";
-echo "<a href=\"changestatus.php?status=".$Complete."&id=".$row['id']."\">Mark Complete</a>";
+echo "<a href=\"changestatus.php?status=".$Complete."\">Mark Complete</a>";
 echo "  | ";
 $Pending = "Pending";
-echo "<a href=\"changestatus.php?status=".$Pending."&id=".$row['id']."\">Mark Pending</a>";
+echo "<a href=\"changestatus.php?status=".$Pending."\">Mark Pending</a>";
 echo "  | ";
 $Started = "Started";
-echo "<a href=\"changestatus.php?status=".$Started."&id=".$row['id']."\">Mark Started</a>";
+echo "<a href=\"changestatus.php?status=".$Started."\">Mark Started</a>";
 echo "  | ";
 $Late = "Late";
-echo "<a href=\"changestatus.php?status=".$Late."&id=".$row['id']."\">Mark Late</a>";
+echo "<a href=\"changestatus.php?status=".$Late."\">Mark Late</a>";
 echo "<br>";
+}
 
 if($row["status"] == "Pending")
 $pendingCount++;
@@ -101,9 +106,6 @@ $i++;
 
 
 }
-
-
-
 
 
 
@@ -128,7 +130,6 @@ echo $completeCount;
 echo "<br>";
 echo "<a href=\"connect.php?status=".$Complete."&id=".$row['id']."\">Total Number of tasks:  </a>";
 echo $rows;
-
 
 $connection->close();
 
