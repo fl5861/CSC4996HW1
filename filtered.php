@@ -76,16 +76,16 @@ echo "  | ";
 echo "<a href=\"removetask.php?id=".$row['id']."\">Remove</a>";
 echo "  | ";
 $Complete= "Complete";
-echo "<a href=\"changestatus.php?status=".$Complete."\">Mark Complete</a>";
+echo "<a href=\"changestatus.php?status=".$Complete."&id=".$row['id']."\">Mark Complete</a>";
 echo "  | ";
 $Pending = "Pending";
-echo "<a href=\"changestatus.php?status=".$Pending."\">Mark Pending</a>";
+echo "<a href=\"changestatus.php?status=".$Pending."&id=".$row['id']."\">Mark Pending</a>";
 echo "  | ";
 $Started = "Started";
-echo "<a href=\"changestatus.php?status=".$Started."\">Mark Started</a>";
+echo "<a href=\"changestatus.php?status=".$Started."&id=".$row['id']."\">Mark Started</a>";
 echo "  | ";
 $Late = "Late";
-echo "<a href=\"changestatus.php?status=".$Late."\">Mark Late</a>";
+echo "<a href=\"changestatus.php?status=".$Late."&id=".$row['id']."\">Mark Late</a>";
 echo "<br>";
 }
 
